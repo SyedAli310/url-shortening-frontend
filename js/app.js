@@ -54,7 +54,7 @@ function showResult(result) {
     <span>code: <span class='resCard-data'>${result.urlCode}</span></span>
     <span>Short Url: <span class='resCard-data'><a href='${
       result.shortUrl
-    }'>${result.shortUrl.replace("https://", "")}</a></span></span>
+    }' target='_blank'>${result.shortUrl.replace("https://", "")}</a></span></span>
     <span>Visits: <span class='resCard-data'>${
       result.visits.length
     }</span></span>
