@@ -22,7 +22,7 @@ async function shortenUrl(longUrl) {
       }),
     });
     const data = await res.json();
-    console.log(data);
+    //console.log(data);
     if (data.msg == "Created") {
       $("#head-msg").text("new short url generated");
       $("#url-submit-btn").removeAttr("disabled");
@@ -153,7 +153,7 @@ function showResult(result) {
       result.visits.length
     }</span>
     </span>
-    <span class='has-text-warning'>${
+    <span class='has-text-warning has-text-centered mt-4'>${
       Math.floor(percent) > 0
         ? Math.floor(percent) + "% shorter"
         : -Math.floor(percent) + "% longer"
