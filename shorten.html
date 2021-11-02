@@ -125,52 +125,97 @@
     </nav>
 
     <main class="container is-fluid">
-      <section class="hero is-small has-text-white mb-6" id="main-hero">
-        <div
-          class="hero-body columns mb-4"
-          style="overflow-y: hidden !important"
-        >
-          <div class="column is-half mx-auto">
-            <p
-              class="title mb-4 has-text-white has-text-centered"
-              style="line-height: 175%"
-            >
-              Never hassle around long URLs again.
-            </p>
-            <div class="buttons my-5">
-              <a
-                href="./shorten.html"
-                class="button is-info is-medium mx-auto"
-                style="font-family: inherit; font-weight: bold"
-              >
-                <ion-icon
-                  name="star-outline"
-                  style="font-size: larger"
-                ></ion-icon>
-                &nbsp;start</a
-              >
+      <section class="hero is-small mt-6" id="shorten-main">
+        <form class="mb-6 mt-2" id="url-form">
+          <div class="field has-text-centered">
+            <label class="label has-text-dark" style="font-size: x-large">enter/search a URL</label>
+            <div class="control has-icons-left">
+              <input
+                class="
+                  input
+                  is-info
+                  has-text-white
+                  is-medium
+                  has-background-black-bis
+                "
+                type="text"
+                placeholder="enter/search a long url.."
+                id="url-input"
+                required
+              />
+              <span class="icon is-small is-left">
+                <ion-icon name="search-outline"></ion-icon>
+              </span>
             </div>
-            <section
-              class="
-                mb-4
-                twisted-1
-                is-small
-                has-background-black-bis has-text-centered
-              "
-            >
-              <h2 class="animated-text mx-auto" data-text="Fexy">Fexy</h2>
-            </section>
           </div>
-        </div>
+          <div class="field has-text-centered mx-auto" style="width: 50%;">
+            <label class="label has-text-dark" style="font-size: x-large">
+                enter a slug(name)
+                <p class="has-text-info-dark" style="font-size: small;">
+                    <ion-icon name="information-circle-outline"></ion-icon>
+                    only required if you're creating a new short URL
+                </p>
+            </label>
+            <div class="control has-icons-left">
+              <input
+                class="
+                  input
+                  is-info
+                  has-text-white
+                  is-medium
+                  has-background-black-bis
+                "
+                type="text"
+                placeholder="enter a slug/name.."
+                id="slug-input"
+                
+              />
+              <span class="icon is-small is-left">
+                <ion-icon name="brush-outline"></ion-icon>
+              </span>
+            </div>
+          </div>
+          <div class="field has-text-centered">
+            <div class="control">
+              <button
+                class="
+                  button
+                  mx-auto
+                  is-success
+                  is-flex
+                  is-align-items-center
+                  is-justify-content-center
+                "
+                type="submit"
+                id="url-submit-btn"
+              >
+                create -&nbsp;<ion-icon
+                name="planet-outline"
+                style="font-size: x-large;"
+                id='url-submit-icon'
+              ></ion-icon>&nbsp;- search
+              </button>
+            </div>
+          </div>
+        </form>
+        <section class="has-background-black mb-6 mt-4 p-4" id="url-result-div">
+          <h1 class="has-text-success mb-4 has-text-centered"><u id="head-msg">enter a url above to get started.</u></h1>
+          <div id="url-result" class="py-6">
+              <h1 class="has-text-centered" style="font-size: xx-large;">😎</h1>
+          </div>
+          <div class="graph-div">
+          </div>
+          <canvas id="myChart" width="100" height="40" style="border-radius: 20px !important;"></canvas>
+        </section>
       </section>
     </main>
     <footer class="has-text-centered mb-4">
-      <hr class="has-background-dark mx-6 is-rounded">
-      <div class="is-flex is-justify-content-space-around mx-6">
-        <p>contact &#8226; <ion-icon name="mail-outline"></ion-icon> <a href = "mailto: alizaidi310@gmail.com">syedali</a></p>
-        <p>github &#8226; <ion-icon name="logo-github"></ion-icon> <a href="https://github.com/SyedAli310" target="_blank">syedali310</a></p>
-      </div>
-    </footer>
+        <hr class="has-background-dark mx-6 is-rounded">
+        <div class="is-flex is-justify-content-space-around mx-6">
+          <p>contact &#8226; <ion-icon name="mail-outline"></ion-icon> <a href = "mailto: alizaidi310@gmail.com">syedali</a></p>
+          <p>github &#8226; <ion-icon name="logo-github"></ion-icon> <a href="https://github.com/SyedAli310" target="_blank">syedali310</a></p>
+        </div>
+      </footer>
   </body>
 
   <!-- jQuery library -->

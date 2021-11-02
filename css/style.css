@@ -33,6 +33,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 nav {
   margin-top: 0 !important;
+  border-bottom: 1.5px solid #296fa8;
   box-shadow: 1px 1px 10px #222121;
 }
 
@@ -46,8 +47,9 @@ ion-icon {
 .hero {
   border-radius: 10px !important;
 }
-
-
+.input{
+  border-radius: 10px !important;
+}
 .dropdown-content .navbar-item,
 .column {
   font-size: 20px !important;
@@ -85,65 +87,72 @@ ion-icon {
   text-align: center !important;
   border-radius: 10px;
   padding: 1rem;
-  animation:wobble 10s ease-in-out forwards infinite;
-  
+  animation: wobble 10s ease-in-out forwards infinite;
 }
-#url-submit-icon{
-    transition: all ease 300ms;
+#url-submit-icon {
+  transition: all ease 300ms;
 }
-#url-submit-btn:hover #url-submit-icon{
-    transform: rotateZ(180deg);
+#url-submit-btn:hover #url-submit-icon {
+  transform: rotateZ(180deg);
 }
-#url-result-div{
-    border: 1px solid #3EC487;
-    border-radius: 6px !important;
+#url-result-div {
+  border: 1px solid #3ec487;
+  border-radius: 6px !important;
 }
-#url-result{
-    min-height: 30vh;
+#url-result {
+  min-height: 30vh;
 }
-.err-msgs{
-    letter-spacing: 1.5px;
+.err-msgs {
+  letter-spacing: 1.5px;
 }
-.resCard{
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: flex-start;
-    gap: 1rem;
-    flex-wrap: wrap;
+.resCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
-.resCard-data{
-    color: #485fc7;
-    font-size: larger;
-    font-weight: bold;
-    font-family: inherit;
+.resCard-data {
+  width: 100%;
+  color: #485fc7;
+  font-size: larger;
+  font-weight: bold;
+  font-family: inherit;
 }
-.resCard-data a{
-    transition: all ease 300ms;
+
+.percent{
+  font-size: larger;
 }
-.resCard-data a:hover{
-    text-decoration: underline;
-    filter: brightness(0.65) !important;
-    color: unset !important;
+.short-url-title{
+  text-align: center;
+}
+.resCard-data a {
+  transition: all ease 300ms;
+}
+.resCard-data a:hover {
+  text-decoration: underline;
+  filter: brightness(0.65) !important;
+  color: coral !important;
 }
 @keyframes wobble {
-    0%{
-        transform: rotate(0);
-        border: 1px solid #1b1b1b;
-    }
-    25%{
-        transform: rotate(2.5deg);
-    }
-    50%{
-        transform: rotate(0);
-    }
-    75%{
-        transform: rotate(-2.5deg);
-    }
-    100%{
-        transform: rotate(0);
-        border: 1px solid #296fa8;
-    }
+  0% {
+    transform: rotate(0);
+    border: 1px solid #1b1b1b;
+  }
+  25% {
+    transform: rotate(2.5deg);
+  }
+  50% {
+    transform: rotate(0);
+  }
+  75% {
+    transform: rotate(-2.5deg);
+  }
+  100% {
+    transform: rotate(0);
+    border: 1px solid #296fa8;
+  }
 }
 @keyframes navAnim {
   from {
@@ -174,7 +183,6 @@ ion-icon {
     border-radius: 0 !important;
     margin: 0 1.5rem;
   }
-
 
   #main-hero .hero-body {
     text-align: center !important;
@@ -278,7 +286,6 @@ ion-icon {
   }
 }
 
-
 .modal-card {
   min-height: 65vh !important;
   height: auto !important;
@@ -297,7 +304,7 @@ ion-icon {
   position: relative;
   animation: rotate 1.5s infinite linear;
   transition: all ease 300ms;
-  border: 1px solid #3EC487;
+  border: 1px solid #3ec487;
 }
 
 .spinner::after {
@@ -308,7 +315,7 @@ ion-icon {
   height: 10px;
   width: 10px;
   border-radius: 100%;
-  background-color: #3EC487;
+  background-color: #3ec487;
 }
 
 @keyframes rotate {

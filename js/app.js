@@ -8,7 +8,7 @@ console.log(
   "font-size: x-large; color: lightblue; font-weight: bold;"
 );
 
-async function shortenUrl(longUrl) {
+async function shortenUrl(longUrl,slug) {
   try {
     resDiv.innerHTML = spinner;
     const res = await fetch("https://fexy.herokuapp.com/api/url/shorten", {
@@ -19,6 +19,7 @@ async function shortenUrl(longUrl) {
       },
       body: JSON.stringify({
         longUrl: longUrl,
+        slug: slug
       }),
     });
     const data = await res.json();
@@ -34,15 +35,24 @@ async function shortenUrl(longUrl) {
       $("#url-submit-btn").removeClass("is-loading");
       showResult(data.url);
     } else if (data.msg == "Bad Request Invalid url provided.") {
+      $("#myChart").css("display", "none");
       $("#url-submit-btn").removeAttr("disabled");
       $("#url-submit-btn").removeClass("is-loading");
       resDiv.innerHTML = `<p class='err-msgs has-text-danger has-text-centered'><span style='font-size:x-large;'>Hmm,</span><br> seems the URL you provided is not valid. ☹️ <br> please provide a valid URL and try again!</p>`;
-    } else {
+    } else if(data.msg == "Bad Request Please provide slug.") {
+      $("#myChart").css("display", "none");
+      $("#url-submit-btn").removeAttr("disabled");
+      $("#url-submit-btn").removeClass("is-loading");
+      resDiv.innerHTML = `<p class='err-msgs has-text-danger has-text-centered'><span style='font-size:x-large;'>Hmm, </span> <br> Seems like you're creating a new short URL <br> Please provide a slug to associate with it. 😉 </p>`;
+    } 
+    else {
+      $("#myChart").css("display", "none");
       $("#url-submit-btn").removeAttr("disabled");
       $("#url-submit-btn").removeClass("is-loading");
       resDiv.innerHTML = `<p class='err-msgs has-text-danger has-text-centered'>${data.msg}</p>`;
     }
   } catch (error) {
+    $("#myChart").css("display", "none");
     //console.log(error.message);
     //resDiv.innerHTML ="Please try again after some time!";
   }
@@ -143,29 +153,41 @@ function showResult(result) {
   let percent = ((long - short) / short) * 100;
   resCard.innerHTML = `
     <span>code: <span class='resCard-data'>${result.urlCode}</span></span>
-    <span>Short Url: <span class='resCard-data'><a href='${
+    <span>slug: <span class='resCard-data'>${result.slug}</span></span>
+    <span>Short Url<span class='resCard-data'>
+    <a href='${
       result.shortUrl
     }' target='_blank'>${result.shortUrl.replace(
     "https://",
     ""
-  )}</a></span></span>
+  )}
+  </a>
+  </span></span>
     <span>Total visits: <span class='resCard-data'>${
       result.visits.length
     }</span>
     </span>
-    <span class='has-text-warning mx-auto'>${
+    <span class='percent mx-auto has-text-centered'>${
       Math.floor(percent) > 0
         ? Math.floor(percent) + "% shorter"
         : -Math.floor(percent) + "% longer"
     } than original</span>
     `;
-  resDiv.append(resCard);
+    resDiv.append(resCard);
+    console.log($(".percent").text());
+    if($(".percent").text().includes("longer")){
+      $(".percent").css("color","hsl(348, 100%, 61%)");
+    }
+    if($(".percent").text().includes("shorter")){
+      $(".percent").css("color","hsl(141, 53%, 53%)");
+    }
 }
 
 $("#url-form").on("submit", (e) => {
   e.preventDefault();
   const longUrl = $("#url-input").val();
-  shortenUrl(longUrl);
+  const slug = $("#slug-input").val();
+  shortenUrl(longUrl,slug);
   $("#url-submit-btn").attr("disabled", true);
   $("#url-submit-btn").addClass("is-loading");
 });
@@ -178,15 +200,6 @@ $(".dropdown-trigger").on("click", () => {
   } else if ($("#hamburger-icon").attr("name") == "close-outline") {
     $("#hamburger-icon").attr("name", "menu-outline");
   }
-});
-
-$("#scroll-btn").on("click", (e) => {
-  $([document.documentElement, document.body]).animate(
-    {
-      scrollTop: $("#shorten-main").offset().top - 100 + "%",
-    },
-    1000
-  );
 });
 
 setInterval(() => {
