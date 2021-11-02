@@ -128,13 +128,13 @@ function showResult(result) {
     x.push(key);
     y.push(value);
   });
-  if(Object.keys(visits).length > 0){
-    $('.graph-div').html(`<p class="has-text-centered">Visits till date</p>`);
-    $('#myChart').css('display','block');
-    makeChart({ x, y })
-  }else{
-    $('.graph-div').html(`<p class="has-text-centered">No visits yet!</p>`);
-    $('#myChart').css('display','none');
+  if (Object.keys(visits).length > 0) {
+    $(".graph-div").html(`<p class="has-text-centered">Visits till date</p>`);
+    $("#myChart").css("display", "block");
+    makeChart({ x, y });
+  } else {
+    $(".graph-div").html(`<p class="has-text-centered">No visits yet!</p>`);
+    $("#myChart").css("display", "none");
   }
   const resCard = document.createElement("div");
   resCard.classList.add("resCard");
@@ -153,7 +153,7 @@ function showResult(result) {
       result.visits.length
     }</span>
     </span>
-    <span class='has-text-warning has-text-centered mt-4'>${
+    <span class='has-text-warning mx-auto'>${
       Math.floor(percent) > 0
         ? Math.floor(percent) + "% shorter"
         : -Math.floor(percent) + "% longer"
