@@ -196,9 +196,6 @@ ion-icon {
   .modal-card {
     min-height: 90vh !important;
   }
-  #myChart{
-    height: 40vh !important;
-  }
 }
 
 .menu {
