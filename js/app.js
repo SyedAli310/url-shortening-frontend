@@ -3,6 +3,11 @@ const spinner = `<div class="spinner mx-auto"></div>`;
 const textCollection = ["URLs", "Visits", "Shorten", "Fexy"];
 let i = 0;
 
+console.log(
+  "%cFexy",
+  "font-size: x-large; color: lightblue; font-weight: bold;"
+);
+
 async function shortenUrl(longUrl) {
   try {
     resDiv.innerHTML = spinner;
@@ -43,8 +48,94 @@ async function shortenUrl(longUrl) {
   }
 }
 
+function makeChart(data) {
+  const plugin = {
+    id: "custom_canvas_background_color",
+    beforeDraw: (chart) => {
+      const ctx = chart.canvas.getContext("2d");
+      ctx.save();
+      ctx.globalCompositeOperation = "destination-over";
+      ctx.fillStyle = "#1b1b1b";
+      ctx.fillRect(0, 0, chart.width, chart.height);
+      ctx.restore();
+    },
+  };
+  var ctx = document.getElementById("myChart").getContext("2d");
+  var myChart = new Chart(ctx, {
+    type: "line",
+    plugins: [plugin],
+    data: {
+      labels: data.x,
+      datasets: [
+        {
+          label: "Visits on the short URL.",
+          data: data.y,
+          pointBackgroundColor: "crimson",
+          // backgroundColor: 'rgba(0, 181, 204, .5)',
+          borderColor: "rgba(0, 181, 300, 1)",
+          hoverBorderColor: "green",
+          color: "red",
+          borderWidth: 2,
+        },
+      ],
+    },
+    options: {
+      legend: {
+        labels: {
+          fontColor: "lightgreen",
+          fontSize: 10,
+        },
+      },
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              fontColor: "lightgreen",
+              fontSize: 10,
+              precision: 0,
+              beginAtZero: true,
+            },
+          },
+        ],
+        xAxes: [
+          {
+            ticks: {
+              fontColor: "lightgreen",
+              precision: 0,
+              beginAtZero: true,
+              fontSize: 10,
+            },
+          },
+        ],
+      },
+    },
+  });
+}
+
 function showResult(result) {
   resDiv.innerHTML = "";
+  const dbVisits = result.visits;
+  let dates = [];
+  let visits = {};
+  dbVisits.forEach((visit) => {
+    const date = new Date(visit.date).toDateString();
+    dates.push(date);
+    visits[date] = dates.filter((x) => x === date).length;
+  });
+  let x = [];
+  let y = [];
+  Object.entries(visits).forEach(([key, value]) => {
+    x.push(key);
+    y.push(value);
+  });
+  if(Object.keys(visits).length > 0){
+    $('.graph-div').html(`<p class="has-text-centered">Visits till date</p>`);
+    $('#myChart').css('display','block');
+    makeChart({ x, y })
+  }else{
+    $('.graph-div').html(`<p class="has-text-centered">No visits yet!</p>`);
+    $('#myChart').css('display','none');
+  }
   const resCard = document.createElement("div");
   resCard.classList.add("resCard");
   let long = parseInt(result.longUrl.length);
@@ -54,10 +145,14 @@ function showResult(result) {
     <span>code: <span class='resCard-data'>${result.urlCode}</span></span>
     <span>Short Url: <span class='resCard-data'><a href='${
       result.shortUrl
-    }' target='_blank'>${result.shortUrl.replace("https://", "")}</a></span></span>
-    <span>Visits: <span class='resCard-data'>${
+    }' target='_blank'>${result.shortUrl.replace(
+    "https://",
+    ""
+  )}</a></span></span>
+    <span>Total visits: <span class='resCard-data'>${
       result.visits.length
-    }</span></span>
+    }</span>
+    </span>
     <span class='has-text-warning'>${
       Math.floor(percent) > 0
         ? Math.floor(percent) + "% shorter"
