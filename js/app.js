@@ -10,7 +10,7 @@ console.log(
 );
 
 async function getTitle(url) {
-  const res = await fetch(`http://textance.herokuapp.com/title/${url}`)
+  const res = await fetch(`https://textance.herokuapp.com/title/${url}`)
   const data = await res.text();
   console.log(data);
   if(data.includes('Remote server failed')){
