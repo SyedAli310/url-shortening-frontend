@@ -10,13 +10,17 @@ console.log(
 );
 
 async function getTitle(url) {
-  const res = await fetch(`https://textance.herokuapp.com/title/${url}`)
-  const data = await res.text();
-  console.log(data);
-  if(data.includes('Remote server failed')){
+  try {
+    const res = await fetch(`https://textance.herokuapp.com/title/${url}`)
+    const data = await res.text();
+    console.log(data);
+    if(data.includes('Remote server failed')){
+      return "NA";
+    }
+    return data;
+  } catch (error) {
     return "NA";
   }
-  return data;
 }
 
 async function shortenUrl(longUrl,slug) {
