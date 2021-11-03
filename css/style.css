@@ -50,6 +50,9 @@ ion-icon {
 .input{
   border-radius: 10px !important;
 }
+::placeholder{
+  color: grey !important;
+}
 .dropdown-content .navbar-item,
 .column {
   font-size: 20px !important;
@@ -287,13 +290,12 @@ ion-icon {
 }
 
 .modal-card {
-  min-height: 65vh !important;
+  width: 95% !important;
+  min-height: 75vh !important;
   height: auto !important;
   animation: navAnim 500ms ease;
 }
-#confirm-msg-modal .modal-card {
-  min-height: 30vh !important;
-}
+
 
 /* custom spinner styles */
 .spinner {
@@ -325,4 +327,35 @@ ion-icon {
   100% {
     transform: rotate(360deg);
   }
+}
+
+
+#search-result{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+.searchCard{
+  border: 1px solid #485fc7;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  margin: 0.5rem;
+}
+.searchCard span:not(.searchCard-data){
+  white-space: nowrap;
+}
+.searchCard a{
+  background-color: #485fc7;
+  color: #fff;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  transition: all ease 300ms;
+}
+.searchCard a:hover{
+  filter: brightness(0.8);
+}
+.searchCard-data{
+  color: #485fc7;
 }

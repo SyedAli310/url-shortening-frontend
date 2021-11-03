@@ -1,4 +1,5 @@
 const resDiv = document.querySelector("#url-result");
+const searchResultDiv = document.querySelector("#search-result");
 const spinner = `<div class="spinner mx-auto"></div>`;
 const textCollection = ["URLs", "Visits", "Shorten", "Fexy"];
 let i = 0;
@@ -7,6 +8,16 @@ console.log(
   "%cFexy",
   "font-size: x-large; color: lightblue; font-weight: bold;"
 );
+
+async function getTitle(url) {
+  const res = await fetch(`http://textance.herokuapp.com/title/${url}`)
+  const data = await res.text();
+  console.log(data);
+  if(data.includes('Remote server failed')){
+    return "NA";
+  }
+  return data;
+}
 
 async function shortenUrl(longUrl,slug) {
   try {
@@ -55,6 +66,64 @@ async function shortenUrl(longUrl,slug) {
     $("#myChart").css("display", "none");
     //console.log(error.message);
     //resDiv.innerHTML ="Please try again after some time!";
+  }
+}
+async function searchUrls(slug) {
+  try {
+    searchResultDiv.innerHTML = spinner;
+    const res = await fetch(`https://fexy.herokuapp.com/api/url/search?query=${slug}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    //console.log(data);
+    if (data.msg == "OK") {
+      //$("#head-msg").text("new short url generated");
+      $("#urls-search-btn").removeAttr("disabled");
+      $("#urls-search-btn").removeClass("is-loading");
+      showSearchResult(data);
+    }else {
+      $("#urls-search-btn").removeAttr("disabled");
+      $("#urls-search-btn").removeClass("is-loading");
+      searchResultDiv.innerHTML = `<p class='err-msgs has-text-danger has-text-centered'>${data.msg}</p>`;
+    }
+  } catch (error) {
+    $("#myChart").css("display", "none");
+    //console.log(error.message);
+    //searchResultDiv.innerHTML ="Please try again after some time!";
+  }
+}
+async function getSingleUrl(code) {
+  try {
+    resDiv.innerHTML = spinner;
+    const res = await fetch(`https://fexy.herokuapp.com/api/url/search/${code}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    //console.log(data);
+    if (data.msg == "OK") {
+      $("#head-msg").text("short url found");
+      $("#fill-searched-url").removeAttr("disabled");
+      $("#fill-searched-url").removeClass("is-loading");
+      showResult(data.url);
+    }
+    else {
+      $("#myChart").css("display", "none");
+      $("#fill-searched-url").removeAttr("disabled");
+      $("#fill-searched-url").removeClass("is-loading");
+      resDiv.innerHTML = `<p class='err-msgs has-text-danger has-text-centered'>${data.msg}</p>`;
+    }
+  } catch (error) {
+    $("#myChart").css("display", "none");
+    //console.log(error.message);
+    //searchResultDiv.innerHTML ="Please try again after some time!";
   }
 }
 
@@ -182,6 +251,35 @@ function showResult(result) {
       $(".percent").css("color","hsl(141, 53%, 53%)");
     }
 }
+function showSearchResult(result) {
+  searchResultDiv.innerHTML = "";
+  const resultsFound = result.length;
+  const urls = result.urls;
+  $('#search-result-count').text(resultsFound+" results found");
+  urls.forEach(async (url) => {
+    const title = await getTitle(url.longUrl);    
+    const searchCard = document.createElement("div");
+    searchCard.classList.add("searchCard");
+    searchCard.innerHTML = `
+      <span>code: <span class='searchCard-data'>${url.urlCode}</span>&nbsp;&#8226;&nbsp;</span>
+      <span>slug: <span class='searchCard-data'>${url.slug}</span>&nbsp;&#8226;&nbsp;</span>
+      <span>Total visits: <span class='searchCard-data'>${url.visits.length}</span>&nbsp;&#8226;&nbsp;</span>
+      <span>info: <span class='searchCard-data'>${title}</span></span>
+      <hr>
+      <a href='${url.shortUrl}' target='_blank' title='${url.slug}'>open</a>
+      <a href='javascript:void(0)' id='fill-searched-url' title='${url.slug}' name='${url.urlCode}'>view</a>
+      `;
+      searchResultDiv.append(searchCard);
+  })
+
+  $('#fill-searched-url').on('click',(e)=>{
+    const urlCode = e.target.getAttribute('name');
+    $("#fill-searched-url").attr("disabled", true);
+    $("#fill-searched-url").addClass("is-loading");
+    getSingleUrl(urlCode);
+    $("#urls-search-modal").removeClass('is-active')
+  })
+}
 
 $("#url-form").on("submit", (e) => {
   e.preventDefault();
@@ -191,6 +289,14 @@ $("#url-form").on("submit", (e) => {
   $("#url-submit-btn").attr("disabled", true);
   $("#url-submit-btn").addClass("is-loading");
 });
+
+$('#urls-search-form').on('submit',(e)=>{
+  e.preventDefault();
+  const slug = $("#urls-search-slug").val();
+  searchUrls(slug)
+  $("#urls-search-btn").attr("disabled", true);
+  $("#urls-search-btn").addClass("is-loading");
+})
 
 $(".dropdown-trigger").on("click", () => {
   $(".dropdown").toggleClass("is-active");
@@ -202,6 +308,12 @@ $(".dropdown-trigger").on("click", () => {
   }
 });
 
+$("#search-urls-modal-btn").on('click',()=>{
+  $("#urls-search-modal").toggleClass('is-active')
+})
+$('.modal-close-usm').on('click',()=>{
+  $("#urls-search-modal").removeClass('is-active')
+})
 setInterval(() => {
   $(".animated-text").text(textCollection[i]);
   $(".animated-text").attr("data-text", textCollection[i]);

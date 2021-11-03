@@ -35,12 +35,7 @@
       >
         <div class="navbar-brand">
           <a class="is-link" href="/">
-            <img
-              src="./img/url.png"
-              width="40"
-              height="30"
-              title="Fexy"
-            />
+            <img src="./img/url.png" width="40" height="30" title="Fexy" />
           </a>
         </div>
         <h1 style="color: #296fa8; font-size: x-large; font-family: inherit">
@@ -96,11 +91,16 @@
                   >
                     Get started
                   </h1>
-                  <a 
-                  href="./shorten.html"
-                  class="button is-small is-info has-text-centered is-fullwidth"
+                  <a
+                    href="./shorten.html"
+                    class="
+                      button
+                      is-small is-info
+                      has-text-centered
+                      is-fullwidth
+                    "
                   >
-                    <span>Shorten a URL</span> 
+                    <span>Shorten a URL</span>
                     <ion-icon name="chevron-forward-circle-outline"></ion-icon>
                   </a>
                 </div>
@@ -126,9 +126,20 @@
 
     <main class="container is-fluid">
       <section class="hero is-small mt-6" id="shorten-main">
+        <button
+          class="button is-small has-background-black-bis has-text-white mx-auto"
+          id="search-urls-modal-btn"
+          style="width: 15rem !important; font-size: large; border: 1px solid #3ec487;"
+        >
+          <ion-icon name="search-outline"></ion-icon>
+          &nbsp;
+          <span>search existing URLs</span>
+        </button>
         <form class="mb-6 mt-2" id="url-form">
           <div class="field has-text-centered">
-            <label class="label has-text-dark" style="font-size: x-large">enter/search a URL</label>
+            <label class="label has-text-dark" style="font-size: x-large"
+              >create a new URL</label
+            >
             <div class="control has-icons-left">
               <input
                 class="
@@ -148,13 +159,13 @@
               </span>
             </div>
           </div>
-          <div class="field has-text-centered mx-auto" style="width: 50%;">
+          <div class="field has-text-centered mx-auto" style="width: 50%">
             <label class="label has-text-dark" style="font-size: x-large">
-                enter a slug(name)
-                <p class="has-text-info-dark" style="font-size: small;">
-                    <ion-icon name="information-circle-outline"></ion-icon>
-                    only required if you're creating a new short URL
-                </p>
+              enter a slug(name)
+              <p class="has-text-info-dark" style="font-size: small">
+                <ion-icon name="information-circle-outline"></ion-icon>
+                only required if you're creating a new short URL
+              </p>
             </label>
             <div class="control has-icons-left">
               <input
@@ -168,7 +179,6 @@
                 type="text"
                 placeholder="enter a slug/name.."
                 id="slug-input"
-                
               />
               <span class="icon is-small is-left">
                 <ion-icon name="brush-outline"></ion-icon>
@@ -190,32 +200,101 @@
                 id="url-submit-btn"
               >
                 create -&nbsp;<ion-icon
-                name="planet-outline"
-                style="font-size: x-large;"
-                id='url-submit-icon'
-              ></ion-icon>&nbsp;- search
+                  name="planet-outline"
+                  style="font-size: x-large"
+                  id="url-submit-icon"
+                ></ion-icon
+                >&nbsp;- search
               </button>
             </div>
           </div>
         </form>
         <section class="has-background-black mb-6 mt-4 p-4" id="url-result-div">
-          <h1 class="has-text-success mb-4 has-text-centered"><u id="head-msg">enter a url above to get started.</u></h1>
+          <h1 class="has-text-success mb-4 has-text-centered">
+            <u id="head-msg">enter a url above to get started.</u>
+          </h1>
           <div id="url-result" class="py-6">
-              <h1 class="has-text-centered" style="font-size: xx-large;">😎</h1>
+            <h1 class="has-text-centered" style="font-size: xx-large">😎</h1>
           </div>
-          <div class="graph-div">
-          </div>
-          <canvas id="myChart" width="100" height="40" style="border-radius: 20px !important;"></canvas>
+          <div class="graph-div"></div>
+          <canvas
+            id="myChart"
+            width="100"
+            height="40"
+            style="border-radius: 20px !important"
+          ></canvas>
         </section>
       </section>
     </main>
+
+    <div class="modal" id="urls-search-modal">
+      <div class="modal-background"></div>
+      <div
+        class="modal-card has-shadow"
+        style="border: 1px solid #3ec487; border-radius: 8px"
+      >
+        <header class="modal-card-head has-background-black-bis">
+          <p class="modal-card-title has-text-white has-text-centered">
+            search URLs
+            </p>
+          <button
+          class="modal-close-usm delete has-background-danger"
+          aria-label="close"
+          ></button>
+        </header>
+        <section class="modal-card-body has-background-black-bis">
+          <form id="urls-search-form" >
+            <div class="field">
+              <div class="control">
+                <input
+                  class="
+                    input
+                    is-success
+                    has-background-black-bis has-text-white
+                  "
+                  type="text"
+                  id="urls-search-slug"
+                  placeholder="enter a slug/name..."
+                  required
+                />
+              </div>
+            </div>
+            <div class="field">
+              <div class="control has-text-centered">
+                <button
+                  class="button is-success"
+                  type="submit"
+                  id="urls-search-btn"
+                >
+                  <ion-icon name="search-outline"></ion-icon>&nbsp;find
+                </button>
+              </div>
+            </div>
+          </form>
+          <h1 id="search-result-count" class="has-text-info"></h1>
+          <div class="has-text-centered mt-6" id="search-result">
+            <div>
+              <h1 style='font-size:xx-large;'>😎</h1>
+              <p>slugs are selected by users creating the short URL <br> some slugs might be irrelevent to the URL</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
     <footer class="has-text-centered mb-4">
-        <hr class="has-background-dark mx-6 is-rounded">
-        <div class="is-flex is-justify-content-space-around mx-6">
-          <p>contact &#8226; <ion-icon name="mail-outline"></ion-icon> <a href = "mailto: alizaidi310@gmail.com">syedali</a></p>
-          <p>github &#8226; <ion-icon name="logo-github"></ion-icon> <a href="https://github.com/SyedAli310" target="_blank">syedali310</a></p>
-        </div>
-      </footer>
+      <hr class="has-background-dark mx-6 is-rounded" />
+      <div class="is-flex is-justify-content-space-around mx-6">
+        <p>
+          contact &#8226; <ion-icon name="mail-outline"></ion-icon>
+          <a href="mailto: alizaidi310@gmail.com">syedali</a>
+        </p>
+        <p>
+          github &#8226; <ion-icon name="logo-github"></ion-icon>
+          <a href="https://github.com/SyedAli310" target="_blank">syedali310</a>
+        </p>
+      </div>
+    </footer>
   </body>
 
   <!-- jQuery library -->
