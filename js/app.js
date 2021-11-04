@@ -265,25 +265,30 @@ function showSearchResult(result) {
     const searchCard = document.createElement("div");
     searchCard.classList.add("searchCard");
     searchCard.innerHTML = `
-      <span>code: <span class='searchCard-data'>${url.urlCode}</span>&nbsp;&#8226;&nbsp;</span>
-      <span>slug: <span class='searchCard-data'>${url.slug}</span>&nbsp;&#8226;&nbsp;</span>
-      <span>Total visits: <span class='searchCard-data'>${url.visits.length}</span>&nbsp;&#8226;&nbsp;</span>
-      <span>info: <span class='searchCard-data'>${title}</span></span>
-      <hr>
-      <a href='${url.shortUrl}' target='_blank' title='${url.slug}'>open</a>
-      <a href='javascript:void(0)' id='fill-searched-url' title='${url.slug}' name='${url.urlCode}'>view</a>
-      `;
-      searchResultDiv.append(searchCard);
+    <span>code: <span class='searchCard-data'>${url.urlCode}</span>&nbsp;&#8226;&nbsp;</span>
+    <span>slug: <span class='searchCard-data'>${url.slug}</span>&nbsp;&#8226;&nbsp;</span>
+    <span>Total visits: <span class='searchCard-data'>${url.visits.length}</span>&nbsp;&#8226;&nbsp;</span>
+    <span>info: <span class='searchCard-data'>${title ? title : 'NA'}</span></span>
+    <hr>
+    <a href='${url.shortUrl}' target='_blank' title='${url.slug}'>open</a>
+    <a href='javascript:void(0)' class='fill-searched-url' title='${url.slug}' name='${url.urlCode}'>view</a>
+    `;
+    searchResultDiv.append(searchCard);
+    viewBtnClickBinder()
   })
 
-  $('#fill-searched-url').on('click',(e)=>{
-    const urlCode = e.target.getAttribute('name');
-    $("#fill-searched-url").attr("disabled", true);
-    $("#fill-searched-url").addClass("is-loading");
+}
+
+function viewBtnClickBinder(){
+  $('.fill-searched-url').on('click', (e)=>{
+    const urlCode = e.target.name;
+    $(".fill-searched-url").attr("disabled", true);
+    $(".fill-searched-url").addClass("is-loading");
     getSingleUrl(urlCode);
     $("#urls-search-modal").removeClass('is-active')
   })
 }
+
 
 $("#url-form").on("submit", (e) => {
   e.preventDefault();
@@ -314,6 +319,7 @@ $(".dropdown-trigger").on("click", () => {
 
 $("#search-urls-modal-btn").on('click',()=>{
   $("#urls-search-modal").toggleClass('is-active')
+  $("#urls-search-slug").focus();
 })
 $('.modal-close-usm').on('click',()=>{
   $("#urls-search-modal").removeClass('is-active')
