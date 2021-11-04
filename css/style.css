@@ -346,6 +346,9 @@ ion-icon {
 .searchCard span:not(.searchCard-data){
   white-space: nowrap;
 }
+.info{
+  white-space: pre-wrap !important;
+}
 .searchCard a{
   background-color: #485fc7;
   color: #fff;

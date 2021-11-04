@@ -276,7 +276,7 @@ function showSearchResult(result) {
     <span>Total visits: <span class='searchCard-data'>${
       url.visits.length
     }</span>&nbsp;&#8226;&nbsp;</span>
-    <span>info: <span class='searchCard-data'>${
+    <span>info: <span class='info searchCard-data'>${
       title ? title : "NA"
     }</span></span>
     <hr>
