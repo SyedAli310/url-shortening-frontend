@@ -11,10 +11,10 @@ console.log(
 
 async function getTitle(url) {
   try {
-    const res = await fetch(`https://textance.herokuapp.com/title/${url}`)
+    const res = await fetch(`https://textance.herokuapp.com/title/${url}`);
     const data = await res.text();
     console.log(data);
-    if(data.includes('Remote server failed')){
+    if (data.includes("Remote server failed")) {
       return "NA";
     }
     return data;
@@ -23,7 +23,7 @@ async function getTitle(url) {
   }
 }
 
-async function shortenUrl(longUrl,slug) {
+async function shortenUrl(longUrl, slug) {
   try {
     resDiv.innerHTML = spinner;
     const res = await fetch("https://fexy.herokuapp.com/api/url/shorten", {
@@ -34,7 +34,7 @@ async function shortenUrl(longUrl,slug) {
       },
       body: JSON.stringify({
         longUrl: longUrl,
-        slug: slug
+        slug: slug,
       }),
     });
     const data = await res.json();
@@ -54,13 +54,12 @@ async function shortenUrl(longUrl,slug) {
       $("#url-submit-btn").removeAttr("disabled");
       $("#url-submit-btn").removeClass("is-loading");
       resDiv.innerHTML = `<p class='err-msgs has-text-danger has-text-centered'><span style='font-size:x-large;'>Hmm,</span><br> seems the URL you provided is not valid. ☹️ <br> please provide a valid URL and try again!</p>`;
-    } else if(data.msg == "Bad Request Please provide slug.") {
+    } else if (data.msg == "Bad Request Please provide slug.") {
       $("#myChart").css("display", "none");
       $("#url-submit-btn").removeAttr("disabled");
       $("#url-submit-btn").removeClass("is-loading");
       resDiv.innerHTML = `<p class='err-msgs has-text-danger has-text-centered'><span style='font-size:x-large;'>Hmm, </span> <br> Seems like you're creating a new short URL <br> Please provide a slug to associate with it. 😉 </p>`;
-    } 
-    else {
+    } else {
       $("#myChart").css("display", "none");
       $("#url-submit-btn").removeAttr("disabled");
       $("#url-submit-btn").removeClass("is-loading");
@@ -75,13 +74,16 @@ async function shortenUrl(longUrl,slug) {
 async function searchUrls(slug) {
   try {
     searchResultDiv.innerHTML = spinner;
-    const res = await fetch(`https://fexy.herokuapp.com/api/url/search?query=${slug}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      `https://fexy.herokuapp.com/api/url/search?query=${slug}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const data = await res.json();
     //console.log(data);
     if (data.msg == "OK") {
@@ -89,7 +91,7 @@ async function searchUrls(slug) {
       $("#urls-search-btn").removeAttr("disabled");
       $("#urls-search-btn").removeClass("is-loading");
       showSearchResult(data);
-    }else {
+    } else {
       $("#urls-search-btn").removeAttr("disabled");
       $("#urls-search-btn").removeClass("is-loading");
       searchResultDiv.innerHTML = `<p class='err-msgs has-text-danger has-text-centered'>${data.msg}</p>`;
@@ -103,13 +105,16 @@ async function searchUrls(slug) {
 async function getSingleUrl(code) {
   try {
     resDiv.innerHTML = spinner;
-    const res = await fetch(`https://fexy.herokuapp.com/api/url/search/${code}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      `https://fexy.herokuapp.com/api/url/search/${code}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const data = await res.json();
     //console.log(data);
     if (data.msg == "OK") {
@@ -117,8 +122,7 @@ async function getSingleUrl(code) {
       $("#fill-searched-url").removeAttr("disabled");
       $("#fill-searched-url").removeClass("is-loading");
       showResult(data.url);
-    }
-    else {
+    } else {
       $("#myChart").css("display", "none");
       $("#fill-searched-url").removeAttr("disabled");
       $("#fill-searched-url").removeClass("is-loading");
@@ -228,9 +232,7 @@ function showResult(result) {
     <span>code: <span class='resCard-data'>${result.urlCode}</span></span>
     <span>slug: <span class='resCard-data'>${result.slug}</span></span>
     <span>Short Url<span class='resCard-data'>
-    <a href='${
-      result.shortUrl
-    }' target='_blank'>${result.shortUrl.replace(
+    <a href='${result.shortUrl}' target='_blank'>${result.shortUrl.replace(
     "https://",
     ""
   )}
@@ -246,66 +248,76 @@ function showResult(result) {
         : -Math.floor(percent) + "% longer"
     } than original</span>
     `;
-    resDiv.append(resCard);
-    console.log($(".percent").text());
-    if($(".percent").text().includes("longer")){
-      $(".percent").css("color","hsl(348, 100%, 61%)");
-    }
-    if($(".percent").text().includes("shorter")){
-      $(".percent").css("color","hsl(141, 53%, 53%)");
-    }
+  resDiv.append(resCard);
+  console.log($(".percent").text());
+  if ($(".percent").text().includes("longer")) {
+    $(".percent").css("color", "hsl(348, 100%, 61%)");
+  }
+  if ($(".percent").text().includes("shorter")) {
+    $(".percent").css("color", "hsl(141, 53%, 53%)");
+  }
 }
 function showSearchResult(result) {
   searchResultDiv.innerHTML = "";
   const resultsFound = result.length;
   const urls = result.urls;
-  $('#search-result-count').text(resultsFound+" results found");
+  $("#search-result-count").text(resultsFound + " results found");
   urls.forEach(async (url) => {
-    const title = await getTitle(url.longUrl);    
+    const title = await getTitle(url.longUrl);
     const searchCard = document.createElement("div");
     searchCard.classList.add("searchCard");
     searchCard.innerHTML = `
-    <span>code: <span class='searchCard-data'>${url.urlCode}</span>&nbsp;&#8226;&nbsp;</span>
-    <span>slug: <span class='searchCard-data'>${url.slug}</span>&nbsp;&#8226;&nbsp;</span>
-    <span>Total visits: <span class='searchCard-data'>${url.visits.length}</span>&nbsp;&#8226;&nbsp;</span>
-    <span>info: <span class='searchCard-data'>${title ? title : 'NA'}</span></span>
+    <span>code: <span class='searchCard-data'>${
+      url.urlCode
+    }</span>&nbsp;&#8226;&nbsp;</span>
+    <span>slug: <span class='searchCard-data'>${
+      url.slug
+    }</span>&nbsp;&#8226;&nbsp;</span>
+    <span>Total visits: <span class='searchCard-data'>${
+      url.visits.length
+    }</span>&nbsp;&#8226;&nbsp;</span>
+    <span>info: <span class='searchCard-data'>${
+      title ? title : "NA"
+    }</span></span>
     <hr>
     <a href='${url.shortUrl}' target='_blank' title='${url.slug}'>open</a>
-    <a href='javascript:void(0)' class='fill-searched-url' title='${url.slug}' name='${url.urlCode}'>view</a>
+    <a href='javascript:void(0)' class='fill-searched-url' title='${
+      url.slug
+    }' name='${url.urlCode}'>view</a>
     `;
     searchResultDiv.append(searchCard);
-    viewBtnClickBinder()
-  })
-
+    viewBtnClickBinder();
+  });
 }
 
-function viewBtnClickBinder(){
-  $('.fill-searched-url').on('click', (e)=>{
+function viewBtnClickBinder() {
+  $(".fill-searched-url").on("click", (e) => {
     const urlCode = e.target.name;
     $(".fill-searched-url").attr("disabled", true);
     $(".fill-searched-url").addClass("is-loading");
     getSingleUrl(urlCode);
-    $("#urls-search-modal").removeClass('is-active')
-  })
+    $("#urls-search-modal").removeClass("is-active");
+    $("#url-input").val("");
+    $("#slug-input").val("");
+  });
 }
-
 
 $("#url-form").on("submit", (e) => {
   e.preventDefault();
   const longUrl = $("#url-input").val();
   const slug = $("#slug-input").val();
-  shortenUrl(longUrl,slug);
+  shortenUrl(longUrl, slug);
   $("#url-submit-btn").attr("disabled", true);
   $("#url-submit-btn").addClass("is-loading");
 });
 
-$('#urls-search-form').on('submit',(e)=>{
+$("#urls-search-form").on("submit", (e) => {
   e.preventDefault();
   const slug = $("#urls-search-slug").val();
-  searchUrls(slug)
+  searchUrls(slug);
   $("#urls-search-btn").attr("disabled", true);
   $("#urls-search-btn").addClass("is-loading");
-})
+});
 
 $(".dropdown-trigger").on("click", () => {
   $(".dropdown").toggleClass("is-active");
@@ -317,13 +329,13 @@ $(".dropdown-trigger").on("click", () => {
   }
 });
 
-$("#search-urls-modal-btn").on('click',()=>{
-  $("#urls-search-modal").toggleClass('is-active')
+$("#search-urls-modal-btn").on("click", () => {
+  $("#urls-search-modal").toggleClass("is-active");
   $("#urls-search-slug").focus();
-})
-$('.modal-close-usm').on('click',()=>{
-  $("#urls-search-modal").removeClass('is-active')
-})
+});
+$(".modal-close-usm").on("click", () => {
+  $("#urls-search-modal").removeClass("is-active");
+});
 setInterval(() => {
   $(".animated-text").text(textCollection[i]);
   $(".animated-text").attr("data-text", textCollection[i]);
