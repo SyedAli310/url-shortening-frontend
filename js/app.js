@@ -53,12 +53,12 @@ async function shortenUrl(longUrl, slug) {
       $("#myChart").css("display", "none");
       $("#url-submit-btn").removeAttr("disabled");
       $("#url-submit-btn").removeClass("is-loading");
-      resDiv.innerHTML = `<p class='err-msgs has-text-danger has-text-centered'><span style='font-size:x-large;'>Hmm,</span><br> seems the URL you provided is not valid. ☹️ <br> please provide a valid URL and try again!</p>`;
+      resDiv.innerHTML = `<p class='err-msgs has-text-danger has-text-centered'><span style='font-size:x-large;'>Hmm,</span><br> seems like the URL you provided is not valid. ☹️ <br> please provide a valid URL and try again!</p>`;
     } else if (data.msg == "Bad Request Please provide slug.") {
       $("#myChart").css("display", "none");
       $("#url-submit-btn").removeAttr("disabled");
       $("#url-submit-btn").removeClass("is-loading");
-      resDiv.innerHTML = `<p class='err-msgs has-text-danger has-text-centered'><span style='font-size:x-large;'>Hmm, </span> <br> Seems like you're creating a new short URL <br> Please provide a slug to associate with it. 😉 </p>`;
+      resDiv.innerHTML = `<p class='err-msgs has-text-danger has-text-centered'><span style='font-size:x-large;'>Hmm, </span> <br> seems like you're creating a new short URL <br> Please provide a slug to associate with it. 😉 </p>`;
     } else {
       $("#myChart").css("display", "none");
       $("#url-submit-btn").removeAttr("disabled");
@@ -67,10 +67,13 @@ async function shortenUrl(longUrl, slug) {
     }
   } catch (error) {
     $("#myChart").css("display", "none");
+    $("#url-submit-btn").removeAttr("disabled");
+      $("#url-submit-btn").removeClass("is-loading");
     //console.log(error.message);
     //resDiv.innerHTML ="Please try again after some time!";
   }
 }
+
 async function searchUrls(slug) {
   try {
     searchResultDiv.innerHTML = spinner;
@@ -381,3 +384,10 @@ setInterval(() => {
     i++;
   }
 }, 4000);
+
+$('.get-started-btn').on('mouseenter',()=>{
+  $('.get-started-btn span').text('Shorten')
+})
+$('.get-started-btn').on('mouseleave',()=>{
+  $('.get-started-btn span').text('Lets go!')
+})
