@@ -108,7 +108,11 @@ ion-icon {
 .err-msgs {
   letter-spacing: 1.5px;
 }
+#url-result{
+  position: relative;
+}
 .resCard {
+  min-height: 30vh !important;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -328,7 +332,26 @@ ion-icon {
     transform: rotate(360deg);
   }
 }
-
+.refresh-stats{
+  position: absolute;
+  top: 0%;
+  right: 0;
+}
+#copy-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2F2F2F;
+  color: #fff;
+  font-size: small;
+  cursor: pointer;
+  padding: 00.125rem 0.25rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+#copy-btn:hover{
+  filter: brightness(1.25);
+}
 
 #search-result{
   display: flex;

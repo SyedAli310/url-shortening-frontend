@@ -5,7 +5,7 @@ const textCollection = ["URLs", "Visits", "Shorten", "Fexy"];
 let i = 0;
 
 console.log(
-  "%cFexy",
+  "%cWelcome to Fexy 😎",
   "font-size: x-large; color: lightblue; font-weight: bold;"
 );
 
@@ -98,8 +98,14 @@ async function searchUrls(slug) {
     }
   } catch (error) {
     $("#myChart").css("display", "none");
-    //console.log(error.message);
-    //searchResultDiv.innerHTML ="Please try again after some time!";
+    $("#urls-search-btn").removeAttr("disabled");
+    $("#urls-search-btn").removeClass("is-loading");
+    console.log('Catch Error',error.message);
+    searchResultDiv.innerHTML =`
+    <p class='err-msgs has-text-danger has-text-centered'>
+    Something went wrong. Please try again after some time!
+    </p>
+    `
   }
 }
 async function getSingleUrl(code) {
@@ -130,6 +136,8 @@ async function getSingleUrl(code) {
     }
   } catch (error) {
     $("#myChart").css("display", "none");
+    $("#fill-searched-url").removeAttr("disabled");
+      $("#fill-searched-url").removeClass("is-loading");
     //console.log(error.message);
     //searchResultDiv.innerHTML ="Please try again after some time!";
   }
@@ -199,6 +207,20 @@ function makeChart(data) {
   });
 }
 
+function copyToClipboard(value) {
+  let x = null;
+  const copied = navigator.clipboard.writeText(value);
+  if (x) {
+    clearTimeout(x);
+  }
+  if (copied) {
+    $("#copy-btn").html('<ion-icon name="checkmark-done-outline" style="color:#48C78E; font-size:larger;"></ion-icon>&nbsp;copied!');
+  }
+  x = setTimeout(() => {
+    $("#copy-btn").html('<ion-icon name="copy-outline" style=" font-size:larger;"></ion-icon>&nbsp;copy');
+  }, 1600);
+}
+
 function showResult(result) {
   resDiv.innerHTML = "";
   const dbVisits = result.visits;
@@ -216,7 +238,9 @@ function showResult(result) {
     y.push(value);
   });
   if (Object.keys(visits).length > 0) {
-    $(".graph-div").html(`<p class="has-text-centered">Visits till date</p>`);
+    $(".graph-div").html(`
+    <p>Visits till date </p>
+    `);
     $("#myChart").css("display", "block");
     makeChart({ x, y });
   } else {
@@ -229,6 +253,9 @@ function showResult(result) {
   let short = parseInt(result.shortUrl.length);
   let percent = ((long - short) / short) * 100;
   resCard.innerHTML = `
+  <button class='refresh-stats button is-small is-dark my-4' name='${result.urlCode}'>
+    <ion-icon name="reload-outline" style='font-size:larger;'></ion-icon> &nbsp;refresh
+    </button>
     <span>code: <span class='resCard-data'>${result.urlCode}</span></span>
     <span>slug: <span class='resCard-data'>${result.slug}</span></span>
     <span>Short Url<span class='resCard-data'>
@@ -237,7 +264,9 @@ function showResult(result) {
     ""
   )}
   </a>
-  </span></span>
+  <span id="copy-btn"><ion-icon name="copy-outline" style=" font-size:larger;"></ion-icon>&nbsp;copy</span>
+  </span>
+  </span>
     <span>Total visits: <span class='resCard-data'>${
       result.visits.length
     }</span>
@@ -256,7 +285,14 @@ function showResult(result) {
   if ($(".percent").text().includes("shorter")) {
     $(".percent").css("color", "hsl(141, 53%, 53%)");
   }
+  $("#copy-btn").click(() => {
+    copyToClipboard(result.shortUrl);
+  });
+  $(".refresh-stats").click((e) => {
+    getSingleUrl(e.target.name);
+  });
 }
+
 function showSearchResult(result) {
   searchResultDiv.innerHTML = "";
   const resultsFound = result.length;
@@ -313,7 +349,7 @@ $("#url-form").on("submit", (e) => {
 
 $("#urls-search-form").on("submit", (e) => {
   e.preventDefault();
-  const slug = $("#urls-search-slug").val();
+  const slug = $("#urls-search-slug").val().trim();
   searchUrls(slug);
   $("#urls-search-btn").attr("disabled", true);
   $("#urls-search-btn").addClass("is-loading");
