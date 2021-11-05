@@ -93,7 +93,12 @@ async function searchUrls(slug) {
       //$("#head-msg").text("new short url generated");
       $("#urls-search-btn").removeAttr("disabled");
       $("#urls-search-btn").removeClass("is-loading");
-      showSearchResult(data);
+      if(data.urls.length == 0){
+        searchResultDiv.innerHTML = "";
+        searchResultDiv.innerHTML=`<p class="has-text-centered has-text-white">No URLs found with the slug '<i class='has-text-danger'>${slug}</i>'</p>`;
+      }else{
+        showSearchResult(data);
+      }
     } else {
       $("#urls-search-btn").removeAttr("disabled");
       $("#urls-search-btn").removeClass("is-loading");

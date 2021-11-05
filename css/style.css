@@ -92,7 +92,11 @@ ion-icon {
   padding: 1rem;
   animation: wobble 10s ease-in-out forwards infinite;
 }
-
+#url-form{
+  border: 1.5px solid #296fa8;
+  border-radius: 10px;
+  padding: 1.5rem 0.5rem;
+}
 #url-submit-icon {
   transition: all ease 300ms;
 }
