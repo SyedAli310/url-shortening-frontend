@@ -184,6 +184,10 @@ ion-icon {
 #main-hero{
   width: 100% !important;
 }
+.get-started-btn {
+  padding: 0.5rem 2rem !important;
+  transition: all ease 300ms;
+}
 @media (max-width: 768px) {
   .dropdown-content {
     width: 90vw !important;

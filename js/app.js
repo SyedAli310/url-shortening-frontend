@@ -391,7 +391,7 @@ setInterval(() => {
 }, 4000);
 
 $('.get-started-btn').on('mouseenter',()=>{
-  $('.get-started-btn span').text('Shorten')
+  $('.get-started-btn span').text('Shorten a URL')
 })
 $('.get-started-btn').on('mouseleave',()=>{
   $('.get-started-btn span').text('Lets go!')
