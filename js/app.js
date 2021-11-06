@@ -14,7 +14,7 @@ async function getTitle(url) {
     const res = await fetch(`https://textance.herokuapp.com/title/${url}`);
     const data = await res.text();
     console.log(data);
-    if (data.includes("Remote server failed")) {
+    if (data.includes("Remote server failed") || data.includes("null")) {
       return "NA";
     }
     return data;
@@ -95,7 +95,7 @@ async function searchUrls(slug) {
       $("#urls-search-btn").removeClass("is-loading");
       if (data.urls.length == 0) {
         searchResultDiv.innerHTML = "";
-        searchResultDiv.innerHTML = `<p class="has-text-centered has-text-white">No URLs found with the slug '<i class='has-text-danger'>${slug}</i>'</p>`;
+        searchResultDiv.innerHTML = `<p class="has-text-centered has-text-white">No URLs found with the slug <i class='has-text-danger'>'${slug}'</i></p>`;
       } else {
         showSearchResult(data);
       }
@@ -286,6 +286,7 @@ function showResult(result) {
       result.visits.length
     }</span>
     </span>
+    <span>created: <span class='resCard-data' style='font-size:smaller;'>${new Date(result.createdAt).toDateString()}, at ${new Date(result.createdAt).toLocaleTimeString()}</span></span>
     <span class='percent mx-auto has-text-centered'>${
       Math.floor(percent) > 0
         ? Math.floor(percent) + "% shorter"
