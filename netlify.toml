@@ -1,0 +1,9 @@
+[[redirects]]
+from = "/index.html"
+to = "/index"
+force = true
+
+[[redirects]]
+from = "/shorten.html"
+to = "/shorten"
+force = true
