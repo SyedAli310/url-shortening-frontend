@@ -126,6 +126,7 @@ ion-icon {
   flex-wrap: wrap;
 }
 .resCard-data {
+  position: relative;
   width: 100%;
   color: #485fc7;
   font-size: larger;
@@ -222,6 +223,10 @@ ion-icon {
   }
   .modal-card {
     min-height: 90vh !important;
+  }
+  #copy-btn{
+    position: relative !important;
+    left: unset !important;
   }
 }
 
@@ -350,6 +355,8 @@ ion-icon {
   right: 0;
 }
 #copy-btn{
+  position: absolute;
+  left: calc(100% + 0.5rem);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -357,13 +364,11 @@ ion-icon {
   color: #fff;
   font-size: small;
   cursor: pointer;
-  padding: 00.125rem 0.25rem;
+  padding: 0.125rem 0.25rem;
   border-radius: 4px;
   white-space: nowrap;
 }
-#copy-btn:hover{
-  filter: brightness(1.25);
-}
+
 
 #search-result{
   display: flex;

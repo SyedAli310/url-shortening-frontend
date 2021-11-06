@@ -222,10 +222,10 @@ function copyToClipboard(value) {
     clearTimeout(x);
   }
   if (copied) {
-    $("#copy-btn").html('<ion-icon name="checkmark-done-outline" style="color:#48C78E; font-size:larger;"></ion-icon>&nbsp;copied!');
+    $("#copy-btn").html('<ion-icon name="checkmark-done-outline" style="color:#48C78E; font-size:20px;"></ion-icon>&nbsp;copied!');
   }
   x = setTimeout(() => {
-    $("#copy-btn").html('<ion-icon name="copy-outline" style=" font-size:larger;"></ion-icon>&nbsp;copy');
+    $("#copy-btn").html('<ion-icon name="copy-outline" style=" font-size:20px;"></ion-icon>&nbsp;copy');
   }, 1600);
 }
 
@@ -272,7 +272,7 @@ function showResult(result) {
     ""
   )}
   </a>
-  <span id="copy-btn"><ion-icon name="copy-outline" style=" font-size:larger;"></ion-icon>&nbsp;copy</span>
+  <span id="copy-btn"><ion-icon name="copy-outline" style=" font-size:20px;"></ion-icon>&nbsp;copy</span>
   </span>
   </span>
     <span>Total visits: <span class='resCard-data'>${
