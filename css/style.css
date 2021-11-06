@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@300&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap");
 body,
 html {
   margin: 0 !important;
@@ -48,10 +48,10 @@ ion-icon {
 .hero {
   border-radius: 10px !important;
 }
-.input{
+.input {
   border-radius: 10px !important;
 }
-::placeholder{
+::placeholder {
   color: grey !important;
 }
 .dropdown-content .navbar-item,
@@ -93,7 +93,7 @@ ion-icon {
   padding: 1rem;
   animation: wobble 10s ease-in-out forwards infinite;
 }
-#url-form{
+#url-form {
   border: 1.5px solid #296fa8;
   border-radius: 10px;
   padding: 1.5rem 0.5rem;
@@ -114,7 +114,7 @@ ion-icon {
 .err-msgs {
   letter-spacing: 1.5px;
 }
-#url-result{
+#url-result {
   position: relative;
 }
 .resCard {
@@ -135,10 +135,10 @@ ion-icon {
   font-family: inherit;
 }
 
-.percent{
+.percent {
   font-size: larger;
 }
-.short-url-title{
+.short-url-title {
   text-align: center;
 }
 .resCard-data a {
@@ -184,7 +184,7 @@ ion-icon {
   margin-left: 0 !important;
   min-height: unset !important;
 }
-#main-hero{
+#main-hero {
   width: 100% !important;
 }
 .get-started-btn {
@@ -226,11 +226,11 @@ ion-icon {
   .modal-card {
     min-height: 90vh !important;
   }
-  #copy-btn{
+  #copy-btn {
     position: relative !important;
     left: unset !important;
   }
-  #slug-field{
+  #slug-field {
     width: 100% !important;
   }
 }
@@ -322,7 +322,6 @@ ion-icon {
   animation: navAnim 500ms ease;
 }
 
-
 /* custom spinner styles */
 .spinner {
   height: 30px;
@@ -354,18 +353,18 @@ ion-icon {
     transform: rotate(360deg);
   }
 }
-.refresh-stats{
+.refresh-stats {
   position: absolute;
   top: 0%;
   right: 0;
 }
-#copy-btn{
+#copy-btn {
   position: absolute;
   left: calc(100% + 0.5rem);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: #2F2F2F;
+  background-color: #2f2f2f;
   color: #fff;
   font-size: small;
   cursor: pointer;
@@ -374,36 +373,45 @@ ion-icon {
   white-space: nowrap;
 }
 
-
-#search-result{
+#search-result {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   gap: 1.25rem;
 }
-.searchCard{
+.searchCard {
   border: 1px solid #485fc7;
   padding: 1rem;
   border-radius: 0.25rem;
   margin: 0.5rem;
 }
-.searchCard span:not(.searchCard-data){
+.searchCard span:not(.searchCard-data) {
   white-space: nowrap;
 }
-.info{
+.info {
   white-space: pre-wrap !important;
 }
-.searchCard a{
+.searchCard a {
   background-color: #485fc7;
   color: #fff;
   padding: 0.125rem 0.5rem;
   border-radius: 0.25rem;
   transition: all ease 300ms;
 }
-.searchCard a:hover{
+.searchCard a:hover {
   filter: brightness(0.8);
 }
-.searchCard-data{
+.searchCard-data {
   color: #485fc7;
+}
+#search-urls-modal-btn {
+  width: 15rem !important;
+  font-size: large;
+  border: 1px solid #3ec487;
+  border-radius: 6px;
+  transition: all ease 300ms !important;
+}
+#search-urls-modal-btn:hover {
+  background-color: #3ec487 !important;
 }
