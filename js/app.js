@@ -6,7 +6,7 @@ let i = 0;
 
 console.log(
   "%cWelcome to Fexy 😎",
-  "font-size: x-large; color: lightblue; font-weight: bold;"
+  "font-size: x-large; color: #485fc7; font-weight: bold; font-family: 'Noto Sans Mono', monospace;"
 );
 
 async function getTitle(url) {
@@ -68,7 +68,7 @@ async function shortenUrl(longUrl, slug) {
   } catch (error) {
     $("#myChart").css("display", "none");
     $("#url-submit-btn").removeAttr("disabled");
-      $("#url-submit-btn").removeClass("is-loading");
+    $("#url-submit-btn").removeClass("is-loading");
     //console.log(error.message);
     //resDiv.innerHTML ="Please try again after some time!";
   }
@@ -93,10 +93,10 @@ async function searchUrls(slug) {
       //$("#head-msg").text("new short url generated");
       $("#urls-search-btn").removeAttr("disabled");
       $("#urls-search-btn").removeClass("is-loading");
-      if(data.urls.length == 0){
+      if (data.urls.length == 0) {
         searchResultDiv.innerHTML = "";
-        searchResultDiv.innerHTML=`<p class="has-text-centered has-text-white">No URLs found with the slug '<i class='has-text-danger'>${slug}</i>'</p>`;
-      }else{
+        searchResultDiv.innerHTML = `<p class="has-text-centered has-text-white">No URLs found with the slug '<i class='has-text-danger'>${slug}</i>'</p>`;
+      } else {
         showSearchResult(data);
       }
     } else {
@@ -108,12 +108,12 @@ async function searchUrls(slug) {
     $("#myChart").css("display", "none");
     $("#urls-search-btn").removeAttr("disabled");
     $("#urls-search-btn").removeClass("is-loading");
-    console.log('Catch Error',error.message);
-    searchResultDiv.innerHTML =`
+    console.log("Catch Error", error.message);
+    searchResultDiv.innerHTML = `
     <p class='err-msgs has-text-danger has-text-centered'>
     Something went wrong. Please try again after some time!
     </p>
-    `
+    `;
   }
 }
 
@@ -146,13 +146,13 @@ async function getSingleUrl(code) {
   } catch (error) {
     $("#myChart").css("display", "none");
     $("#fill-searched-url").removeAttr("disabled");
-      $("#fill-searched-url").removeClass("is-loading");
+    $("#fill-searched-url").removeClass("is-loading");
     //console.log(error.message);
     //searchResultDiv.innerHTML ="Please try again after some time!";
   }
 }
 
-function makeChart(data,slug) {
+function makeChart(data, slug) {
   const plugin = {
     id: "custom_canvas_background_color",
     beforeDraw: (chart) => {
@@ -223,10 +223,14 @@ function copyToClipboard(value) {
     clearTimeout(x);
   }
   if (copied) {
-    $("#copy-btn").html('<ion-icon name="checkmark-done-outline" style="color:#48C78E; font-size:20px;"></ion-icon>&nbsp;copied!');
+    $("#copy-btn").html(
+      '<ion-icon name="checkmark-done-outline" style="color:#48C78E; font-size:20px;"></ion-icon>&nbsp;copied!'
+    );
   }
   x = setTimeout(() => {
-    $("#copy-btn").html('<ion-icon name="copy-outline" style=" font-size:20px;"></ion-icon>&nbsp;copy');
+    $("#copy-btn").html(
+      '<ion-icon name="copy-outline" style=" font-size:20px;"></ion-icon>&nbsp;copy'
+    );
   }, 1600);
 }
 
@@ -262,7 +266,9 @@ function showResult(result) {
   let short = parseInt(result.shortUrl.length);
   let percent = ((long - short) / short) * 100;
   resCard.innerHTML = `
-  <button class='refresh-stats button is-small is-dark my-4' name='${result.urlCode}'>
+  <button class='refresh-stats button is-small is-dark my-4' name='${
+    result.urlCode
+  }'>
     <ion-icon name="reload-outline" style='font-size:larger;'></ion-icon> &nbsp;refresh
     </button>
     <span>code: <span class='resCard-data'>${result.urlCode}</span></span>
@@ -391,9 +397,9 @@ setInterval(() => {
   }
 }, 4000);
 
-$('.get-started-btn').on('mouseenter',()=>{
-  $('.get-started-btn span').text('Shorten a URL')
-})
-$('.get-started-btn').on('mouseleave',()=>{
-  $('.get-started-btn span').text('Lets go!')
-})
+$(".get-started-btn").on("mouseenter", () => {
+  $(".get-started-btn span").text("Shorten a URL");
+});
+$(".get-started-btn").on("mouseleave", () => {
+  $(".get-started-btn span").text("Lets go!");
+});
