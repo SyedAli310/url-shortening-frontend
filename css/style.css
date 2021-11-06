@@ -230,6 +230,9 @@ ion-icon {
     position: relative !important;
     left: unset !important;
   }
+  #slug-field{
+    width: 100% !important;
+  }
 }
 
 .menu {
