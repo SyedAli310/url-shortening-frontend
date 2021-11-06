@@ -116,6 +116,7 @@ async function searchUrls(slug) {
     `
   }
 }
+
 async function getSingleUrl(code) {
   try {
     resDiv.innerHTML = spinner;
@@ -151,7 +152,7 @@ async function getSingleUrl(code) {
   }
 }
 
-function makeChart(data) {
+function makeChart(data,slug) {
   const plugin = {
     id: "custom_canvas_background_color",
     beforeDraw: (chart) => {
@@ -171,7 +172,7 @@ function makeChart(data) {
       labels: data.x,
       datasets: [
         {
-          label: "Visits on the short URL.",
+          label: `Visits on ${slug}`,
           data: data.y,
           pointBackgroundColor: "crimson",
           // backgroundColor: 'rgba(0, 181, 204, .5)',
@@ -250,7 +251,7 @@ function showResult(result) {
     <p>Visits till date </p>
     `);
     $("#myChart").css("display", "block");
-    makeChart({ x, y });
+    makeChart({ x, y }, result.slug);
   } else {
     $(".graph-div").html(`<p class="has-text-centered">No visits yet!</p>`);
     $("#myChart").css("display", "none");
