@@ -152,6 +152,17 @@ async function getSingleUrl(code) {
   }
 }
 
+async function getAllUrls() {
+  try {
+    const res = await fetch('https://fexy.herokuapp.com/api/url')
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
 function makeChart(data, slug) {
   const plugin = {
     id: "custom_canvas_background_color",

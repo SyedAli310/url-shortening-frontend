@@ -153,6 +153,9 @@
                 </a
               >
             </div>
+            <section class="total-url-count mb-4">
+              <h1 class="is-size-2 has-text-white-ter has-text-centered">Loading...</h1>
+            </section>
             <section
               class="
                 mb-4
@@ -197,4 +200,10 @@
   <!-- Custom JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   <script src="./js/app.js"></script>
+  <script>
+    window.onload=getAllUrls().then(data => {
+      let totalUrls = data.totalUrls;
+      document.querySelector(".total-url-count h1").innerHTML = `${totalUrls} URL's created`;
+    });
+  </script>
 </html>
