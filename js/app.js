@@ -33,7 +33,7 @@ async function shortenUrl(longUrl, slug) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        longUrl: longUrl,
+        longUrl: longUrl.trim(),
         slug: slug,
       }),
     });
