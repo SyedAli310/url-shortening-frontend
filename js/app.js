@@ -248,8 +248,6 @@ function copyToClipboard(value) {
 
 function showResult(result) {
   resDiv.innerHTML = "";
-  resDiv.innerHTML =
-    "Short URLs can work with both, the URL Code and the slug.";
   const dbVisits = result.visits;
   let dates = [];
   let visits = {};
@@ -316,7 +314,7 @@ function showResult(result) {
     } than original</span>
     `;
   resDiv.append(resCard);
-  console.log($(".percent").text());
+  //console.log($(".percent").text());
   if ($(".percent").text().includes("longer")) {
     $(".percent").css("color", "hsl(348, 100%, 61%)");
   }

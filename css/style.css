@@ -44,7 +44,13 @@ main {
 ion-icon {
   pointer-events: none;
 }
-
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    transition: background-color 99999999999999999s;
+    -webkit-text-fill-color: #fff !important;
+}
 .hero {
   border-radius: 10px !important;
 }
