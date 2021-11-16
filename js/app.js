@@ -251,7 +251,11 @@ function showResult(result) {
   let dates = [];
   let visits = {};
   dbVisits.forEach((visit) => {
-    const date = new Date(visit.date).toDateString();
+    let date = new Date(visit.date).toDateString();
+    date = date.split(' ');
+    date.shift();
+    date = date.join(' ');
+    console.log(date);
     dates.push(date);
     visits[date] = dates.filter((x) => x === date).length;
   });
