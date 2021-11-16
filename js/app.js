@@ -290,7 +290,7 @@ function showResult(result) {
     <ion-icon name="reload-outline" style='font-size:larger;'></ion-icon> &nbsp;refresh
     </button>
     <span>code: <span class='resCard-data'>${result.urlCode}</span></span>
-    <span>slug: <span class='resCard-data'>${result.slug.includes(' ') ? result.slug + '&nbsp;<span class="tag is-warning" title="Spaces are no more allowed in slugs." style="cursor:pointer;">depracated</span>' : result.slug}</span></span>
+    <span>slug: <span class='resCard-data'>${result.slug.includes(' ') ? result.slug + '&nbsp;<span class="tag is-warning" title="Spaces are no more allowed in slugs." style="cursor:pointer;">deprecated</span>' : result.slug}</span></span>
     <span>Short Url<span class='resCard-data'>
     <a href='${result.shortUrl}' target='_blank'>${result.shortUrl.replace(
     "https://",
