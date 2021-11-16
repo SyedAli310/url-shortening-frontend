@@ -154,7 +154,7 @@ async function getSingleUrl(code) {
 
 async function getAllUrls() {
   try {
-    const res = await fetch('https://fexy.herokuapp.com/api/url')
+    const res = await fetch("https://fexy.herokuapp.com/api/url");
     const data = await res.json();
     console.log(data);
     return data;
@@ -185,12 +185,13 @@ function makeChart(data, slug) {
         {
           label: `Visits on ${slug}`,
           data: data.y,
-          pointBackgroundColor: "crimson",
-          // backgroundColor: 'rgba(0, 181, 204, .5)',
-          borderColor: "rgba(0, 181, 300, 1)",
-          hoverBorderColor: "green",
-          color: "red",
-          borderWidth: 2,
+          pointBackgroundColor: "hsl(48, 100%, 67%)",
+          backgroundColor: "rgba(0, 181, 300, 0.25)",
+          borderColor: "hsl(348, 100%, 61%)",
+          hoverBorderColor: "hsl(141, 71%, 48%)",
+          color: "hsl(217, 71%, 53%)",
+          borderWidth: 1,
+          fill: true,
         },
       ],
     },
@@ -247,14 +248,16 @@ function copyToClipboard(value) {
 
 function showResult(result) {
   resDiv.innerHTML = "";
+  resDiv.innerHTML =
+    "Short URLs can work with both, the URL Code and the slug.";
   const dbVisits = result.visits;
   let dates = [];
   let visits = {};
   dbVisits.forEach((visit) => {
     let date = new Date(visit.date).toDateString();
-    date = date.split(' ');
+    date = date.split(" ");
     date.shift();
-    date = date.join(' ');
+    date = date.join(" ");
     console.log(date);
     dates.push(date);
     visits[date] = dates.filter((x) => x === date).length;
@@ -301,7 +304,11 @@ function showResult(result) {
       result.visits.length
     }</span>
     </span>
-    <span>created: <span class='resCard-data' style='font-size:smaller;'>${new Date(result.createdAt).toDateString()}, at ${new Date(result.createdAt).toLocaleTimeString()}</span></span>
+    <span>created: <span class='resCard-data' style='font-size:smaller;'>${new Date(
+      result.createdAt
+    ).toDateString()}, at ${new Date(
+    result.createdAt
+  ).toLocaleTimeString()}</span></span>
     <span class='percent mx-auto has-text-centered'>${
       Math.floor(percent) > 0
         ? Math.floor(percent) + "% shorter"
