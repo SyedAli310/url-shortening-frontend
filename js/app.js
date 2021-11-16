@@ -186,7 +186,7 @@ function makeChart(data, slug) {
           label: `Visits on ${slug}`,
           data: data.y,
           pointBackgroundColor: "hsl(48, 100%, 67%)",
-          backgroundColor: "rgba(0, 181, 300, 0.25)",
+          backgroundColor: "rgba(0, 181, 300, 0.24)",
           borderColor: "hsl(348, 100%, 61%)",
           hoverBorderColor: "hsl(141, 71%, 48%)",
           color: "hsl(217, 71%, 53%)",
