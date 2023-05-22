@@ -9,24 +9,24 @@ console.log(
   "font-size: x-large; color: #485fc7; font-weight: bold; font-family: 'Noto Sans Mono', monospace;"
 );
 
-async function getTitle(url) {
-  try {
-    const res = await fetch(`https://textance.herokuapp.com/title/${url}`);
-    const data = await res.text();
-    console.log(data);
-    if (data.includes("Remote server failed") || data.includes("null")) {
-      return "NA";
-    }
-    return data;
-  } catch (error) {
-    return "NA";
-  }
-}
+// async function getTitle(url) {
+//   try {
+//     const res = await fetch(`https://textance.herokuapp.com/title/${url}`);
+//     const data = await res.text();
+//     console.log(data);
+//     if (data.includes("Remote server failed") || data.includes("null")) {
+//       return "NA";
+//     }
+//     return data;
+//   } catch (error) {
+//     return "NA";
+//   }
+// }
 
 async function shortenUrl(longUrl, slug) {
   try {
     resDiv.innerHTML = spinner;
-    const res = await fetch("https://fexy.herokuapp.com/api/url/shorten", {
+    const res = await fetch("https://fexyapp.vercel.app/api/url/shorten", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -78,7 +78,7 @@ async function searchUrls(slug) {
   try {
     searchResultDiv.innerHTML = spinner;
     const res = await fetch(
-      `https://fexy.herokuapp.com/api/url/search?query=${slug}`,
+      `https://fexyapp.vercel.app/api/url/search?query=${slug}`,
       {
         method: "GET",
         headers: {
@@ -121,7 +121,7 @@ async function getSingleUrl(code) {
   try {
     resDiv.innerHTML = spinner;
     const res = await fetch(
-      `https://fexy.herokuapp.com/api/url/search/${code}`,
+      `https://fexyapp.vercel.app/api/url/search/${code}`,
       {
         method: "GET",
         headers: {
@@ -154,7 +154,7 @@ async function getSingleUrl(code) {
 
 async function getAllUrls() {
   try {
-    const res = await fetch("https://fexy.herokuapp.com/api/url");
+    const res = await fetch("https://fexyapp.vercel.app/api/url");
     const data = await res.json();
     console.log(data);
     return data;
@@ -335,7 +335,7 @@ function showSearchResult(result) {
   const urls = result.urls;
   $("#search-result-count").text(resultsFound + " results found");
   urls.forEach(async (url) => {
-    const title = await getTitle(url.longUrl);
+    const title = null;
     const searchCard = document.createElement("div");
     searchCard.classList.add("searchCard");
     searchCard.innerHTML = `
