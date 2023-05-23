@@ -26,7 +26,7 @@ console.log(
 async function shortenUrl(longUrl, slug) {
   try {
     resDiv.innerHTML = spinner;
-    const res = await fetch("https://fexyapp.vercel.app/api/url/shorten", {
+    const res = await fetch("https://fxy.vercel.app/api/url/shorten", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -78,7 +78,7 @@ async function searchUrls(slug) {
   try {
     searchResultDiv.innerHTML = spinner;
     const res = await fetch(
-      `https://fexyapp.vercel.app/api/url/search?query=${slug}`,
+      `https://fxy.vercel.app/api/url/search?query=${slug}`,
       {
         method: "GET",
         headers: {
@@ -121,7 +121,7 @@ async function getSingleUrl(code) {
   try {
     resDiv.innerHTML = spinner;
     const res = await fetch(
-      `https://fexyapp.vercel.app/api/url/search/${code}`,
+      `https://fxy.vercel.app/api/url/search/${code}`,
       {
         method: "GET",
         headers: {
@@ -154,7 +154,7 @@ async function getSingleUrl(code) {
 
 async function getAllUrls() {
   try {
-    const res = await fetch("https://fexyapp.vercel.app/api/url");
+    const res = await fetch("https://fxy.vercel.app/api/url");
     const data = await res.json();
     console.log(data);
     return data;
