@@ -4,6 +4,9 @@ const spinner = `<div class="spinner mx-auto"></div>`;
 const textCollection = ["URLs", "Visits", "Shorten", "Fexy"];
 let i = 0;
 
+const BASE_URL = 'https://fxy.vercel.app';
+// const BASE_URL = 'http://localhost:5000';
+
 console.log(
   "%cWelcome to Fexy 😎",
   "font-size: x-large; color: #485fc7; font-weight: bold; font-family: 'Noto Sans Mono', monospace;"
@@ -26,7 +29,7 @@ console.log(
 async function shortenUrl(longUrl, slug) {
   try {
     resDiv.innerHTML = spinner;
-    const res = await fetch("https://fxy.vercel.app/api/url/shorten", {
+    const res = await fetch(`${BASE_URL}/api/url/shorten`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -78,7 +81,7 @@ async function searchUrls(slug) {
   try {
     searchResultDiv.innerHTML = spinner;
     const res = await fetch(
-      `https://fxy.vercel.app/api/url/search?query=${slug}`,
+      `${BASE_URL}/api/url/search?query=${slug}`,
       {
         method: "GET",
         headers: {
@@ -121,7 +124,7 @@ async function getSingleUrl(code) {
   try {
     resDiv.innerHTML = spinner;
     const res = await fetch(
-      `https://fxy.vercel.app/api/url/search/${code}`,
+      `${BASE_URL}/api/url/search/${code}`,
       {
         method: "GET",
         headers: {
@@ -154,7 +157,7 @@ async function getSingleUrl(code) {
 
 async function getAllUrls() {
   try {
-    const res = await fetch("https://fxy.vercel.app/api/url");
+    const res = await fetch(`${BASE_URL}/api/url`);
     const data = await res.json();
     console.log(data);
     return data;
